@@ -152,10 +152,26 @@ Plantilla.pieTable = function () {
 }
 
 Plantilla.imprime = function (vector) {
-    console.log( vector ) // Para comprobar lo que hay en vector
+    //console.log( vector ) // Para comprobar lo que hay en vector
     let msj = "";
     msj += Plantilla.cabeceraTable();
     vector.forEach(e => msj += Plantilla.cuerpoTr(e))
+    msj += Plantilla.pieTable();
+
+    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar( "Listado de jugadores", msj )
+
+}
+
+Plantilla.imprimeNombre = function (vector) {
+    //console.log( vector ) // Para comprobar lo que hay en vector
+    let msj = "";
+    msj += `<table class="listado-jugadores">
+    <thead>
+    <th>Nombre</th>
+    </thead>
+    <tbody>`;
+    vector.forEach(e => msj += Plantilla.soloNombre(e))
     msj += Plantilla.pieTable();
 
     // Borro toda la info de Article y la sustituyo por la que me interesa
@@ -179,6 +195,14 @@ Plantilla.cuerpoTr = function (p) {
     `;
 }
 
+Plantilla.soloNombre = function (p){
+    const d = p.data;
+    return `<tr><td><em>${d.nombre}</em></td></tr>`
+}
+
 Plantilla.listar = function(){
     this.recupera(this.imprime);
+}
+Plantilla.listarNombre = function(){
+     this.recupera(this.imprimeNombre);
 }
