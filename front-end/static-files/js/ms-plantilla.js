@@ -116,7 +116,7 @@ Plantilla.recupera = async function (callBackFn) {
 
     // Intento conectar con el microservicio proyectos
     try {
-        const url = Frontend.API_GATEWAY + "/getTodos"
+        const url = Frontend.API_GATEWAY + "/plantilla/getTodos"
         response = await fetch(url)
 
     } catch (error) {
@@ -159,7 +159,7 @@ Plantilla.imprime = function (vector) {
     msj += Plantilla.pieTable();
 
     // Borro toda la info de Article y la sustituyo por la que me interesa
-    Frontend.Article.actualizar( "Listado de proyectos", msj )
+    Frontend.Article.actualizar( "Listado de jugadores", msj )
 
 }
 

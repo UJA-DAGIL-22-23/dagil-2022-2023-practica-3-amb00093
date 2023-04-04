@@ -68,7 +68,7 @@ const CB_MODEL_SELECTS = {
                     q.Lambda("X", q.Get(q.Var("X")))
                 )
             )
-            console.log( plantilla ) // Para comprobar qué se ha devuelto en proyectos
+            //console.log( plantilla ) // Para comprobar qué se ha devuelto en proyectos
             CORS(res)
                 .status(200)
                 .json(plantilla)
