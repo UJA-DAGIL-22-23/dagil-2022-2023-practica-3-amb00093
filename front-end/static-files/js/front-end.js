@@ -10,7 +10,7 @@ let Frontend = {};
 
 
 /// Dirección del MS que funciona como API_GATEWAY
-Frontend.API_GATEWAY = "http://localhost:8001"
+Frontend.API_GATEWAY = "http://localhost:8002"
 
 /// Algunas constantes relacionadas con CSS y HTML
 Frontend.ID_SECCION_PRINCIPAL = "seccion-principal"

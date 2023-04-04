@@ -49,42 +49,34 @@ const CB_MODEL_SELECTS = {
      */
     test_db: async (req, res) => {
         try {
-            let personas = await client.query(
+            let plantilla = await client.query(
                 q.Map(
                     q.Paginate(q.Documents(q.Collection(COLLECTION))),
                     q.Lambda("X", q.Get(q.Var("X")))
                 )
             )
-            res.status(200).json(personas)
+            res.status(200).json(plantilla)
         } catch (error) {
             res.status(500).json({ error: error.description })
         }
     },
-    /**
-     * Método para obtener un listado con todos los nombres de todos los jugadores
-     */
-
-
-
-
+    getTodos: async (req, res) => {
+        try {
+            let plantilla = await client.query(
+                q.Map(
+                    q.Paginate(q.Documents(q.Collection(COLLECTION))),
+                    q.Lambda("X", q.Get(q.Var("X")))
+                )
+            )
+            console.log( plantilla ) // Para comprobar qué se ha devuelto en proyectos
+            CORS(res)
+                .status(200)
+                .json(plantilla)
+        } catch (error) {
+            CORS(res).status(500).json({ error: error.description })
+        }
+    },
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

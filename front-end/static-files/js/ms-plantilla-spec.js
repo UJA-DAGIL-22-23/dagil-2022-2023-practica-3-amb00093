@@ -121,6 +121,8 @@ describe("Plantilla.mostrarAcercaDe: ", function () {
             expect(elementoContenido.innerHTML.search(datosDescargadosPrueba.email) >= 0).toBeTrue()
             expect(elementoContenido.innerHTML.search(datosDescargadosPrueba.fecha) >= 0).toBeTrue()
         })
+
+    
 })
 
 

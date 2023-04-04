@@ -63,8 +63,20 @@ describe('Servidor PLANTILLA:', () => {
         .end((error) => { error ? done.fail(error) : done(); }
         );
     });
-
+    it('Devuelve un vector de tamaño 11 al consultar mediante getTodos', (done)=>{
+      supertest(app)
+        .get('/getTodos')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function (res) {
+          assert(res.body.data.length === 11);
+        })
+        .end((error) => {error ? done.fail(error) : done(); }
+        );
   })
+
+  });
+
 });
 
 

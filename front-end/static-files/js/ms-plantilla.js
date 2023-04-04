@@ -107,5 +107,78 @@ Plantilla.procesarAcercaDe = function () {
     this.descargarRuta("/plantilla/acercade", this.mostrarAcercaDe);
 }
 
+/**
+ * Función que recupera todos los jugadores llamando al MSPlantilla
+ */
 
+Plantilla.recupera = async function (callBackFn) {
+    let response = null
 
+    // Intento conectar con el microservicio proyectos
+    try {
+        const url = Frontend.API_GATEWAY + "/getTodos"
+        response = await fetch(url)
+
+    } catch (error) {
+        alert("Error: No se han podido acceder al API Gateway")
+        console.error(error)
+        //throw error
+    }
+
+    // Muestro todos los proyectos que se han descargado
+    let vectorJugadores = null
+    if (response) {
+        vectorJugadores = await response.json()
+        callBackFn(vectorJugadores.data)
+    }
+}
+
+/**
+ * Crea la cabecera para mostrar la info en una tabla
+ * @returns cabecera de la tabla
+ */
+
+Plantilla.cabeceraTable = function () {
+    return `<table class="listado-jugadores">
+        <thead>
+        <th>Nombre</th><th>Apellidos</th><th>Nacimiento</th><th>Pais</th><th>Mundiales</th><th>Num. Participaciones</th><th>Club Actual</th><th>Posicion</th>
+        </thead>
+        <tbody>
+    `;
+}
+
+Plantilla.pieTable = function () {
+    return "</tbody></table>";
+}
+
+Plantilla.imprime = function (vector) {
+    console.log( vector ) // Para comprobar lo que hay en vector
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
+    msj += Plantilla.pieTable();
+
+    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar( "Listado de proyectos", msj )
+
+}
+
+Plantilla.cuerpoTr = function (p) {
+    const d = p.data;
+    const nac = d.nacimiento;
+    return `< tr title="${p.ref['@ref'].id}">
+    <td><em>${d.nombre}</em></td>
+    <td>${d.apellidos}</td>
+    <td>${nac.dia}/${nac.mes}/${nac.Año}</td>
+    <td>${d.pais_nacimiento}</td>
+    <td>${d.participacionesMundial}</td>
+    <td>${d.numParticipaciones}</td>
+    <td>${d.club_actual}</td>
+    <td>${d.posicion}</td>
+    </tr>
+    `;
+}
+
+Plantilla.listar = function(){
+    this.recupera(this.imprime);
+}
