@@ -17,7 +17,7 @@ const client = new faunadb.Client({
     secret: 'fnAFAFQ6zuAAzdCbQmODooigiRDvcD3a1ApmPCfD',
 });
 
-const COLLECTION = "¿¿¿ COLECCION ???"
+const COLLECTION = "Volley"
 
 // CALLBACKS DEL MODELO
 
@@ -60,8 +60,32 @@ const CB_MODEL_SELECTS = {
             res.status(500).json({ error: error.description })
         }
     },
+    /**
+     * Método para obtener un listado con todos los nombres de todos los jugadores
+     */
+
+
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
