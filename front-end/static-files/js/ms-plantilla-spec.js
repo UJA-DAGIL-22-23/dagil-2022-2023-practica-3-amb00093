@@ -13,6 +13,7 @@ const elementoContenido = document.getElementById(Frontend.ID_SECCION_PRINCIPAL_
 const TITULO_HOME = "Plantilla Home"
 const TITULO_ACERCA_DE = "Plantilla Acerca de"
 const TITULO_MOSTRAR_NOMBRES = "Listado de nombres de los jugadores"
+const TITULO_MOSTRAR_DATOS = "Listado de datos de los jugadores"
 
 const datosDescargadosPrueba = {
     mensaje: "Mensaje de prueba descargado",
@@ -206,12 +207,33 @@ describe("Plantilla.imprimeNombre: ", function (){
 
     it("Muestra correctamente el contenido de la tabla con los dos jugadores de prueba. ",
     function (){
-        
         Plantilla.imprimeNombre(jugadores)
         expect(elementoContenido.innerHTML.search(jugadores[0].data.nombre)>= 0).toBeTrue();
         expect(elementoContenido.innerHTML.search(jugadores[1].data.nombre)>= 0).toBeTrue();
     }
-    )})
+    )
+})
+
+describe("Plantilla.listar: ", function (){
+    it("Muestra correctamente el titulo de la tabla. ",
+    function (){
+        Plantilla.imprime(jugadores)
+        expect(elementoTitulo.innerHTML).toBe(TITULO_MOSTRAR_DATOS)
+    }
+    )
+    it("Muestra correctamente el contenido de la tabla con los dos jugadores de prueba. ",
+    function (){
+        Plantilla.imprime(jugadores)
+        expect(elementoContenido.innerHTML.search(jugadores[0].data.nombre)>= 0).toBeTrue();
+        expect(elementoContenido.innerHTML.search(jugadores[0].data.pais_nacimiento)>= 0).toBeTrue();
+        expect(elementoContenido.innerHTML.search(jugadores[0].data.apellidos)>= 0).toBeTrue();
+        expect(elementoContenido.innerHTML.search(jugadores[0].data.nombre)>= 0).toBeTrue();
+        expect(elementoContenido.innerHTML.search(jugadores[1].data.numParticipaciones)>= 0).toBeTrue();
+        expect(elementoContenido.innerHTML.search(jugadores[1].data.posicion)>= 0).toBeTrue();
+        expect(elementoContenido.innerHTML.search(jugadores[1].data.club_actual)>= 0).toBeTrue();
+    }
+    )
+})
 /*
 IMPORTANTE
 ==========

@@ -159,7 +159,7 @@ Plantilla.imprime = function (vector) {
     msj += Plantilla.pieTable();
 
     // Borro toda la info de Article y la sustituyo por la que me interesa
-    Frontend.Article.actualizar( "Listado de jugadores", msj )
+    Frontend.Article.actualizar( "Listado de datos de los jugadores", msj )
 
 }
 
@@ -182,7 +182,7 @@ Plantilla.imprimeNombre = function (vector) {
 Plantilla.cuerpoTr = function (p) {
     const d = p.data;
     const nac = d.nacimiento;
-    return `< tr title="${p.ref['@ref'].id}">
+    return `
     <td><em>${d.nombre}</em></td>
     <td>${d.apellidos}</td>
     <td>${nac.dia}/${nac.mes}/${nac.Año}</td>
@@ -200,7 +200,7 @@ Plantilla.soloNombre = function (p){
     return `<tr><td><em>${d.nombre}</em></td></tr>`
 }
 
-Plantilla.listar = function(){
+Plantilla.listarDatos = function(){
     this.recupera(this.imprime);
 }
 Plantilla.listarNombre = function(){
