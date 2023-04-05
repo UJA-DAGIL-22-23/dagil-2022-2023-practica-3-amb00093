@@ -12,6 +12,7 @@ const elementoTitulo = document.getElementById(Frontend.ID_SECCION_PRINCIPAL_TIT
 const elementoContenido = document.getElementById(Frontend.ID_SECCION_PRINCIPAL_CONTENIDO)
 const TITULO_HOME = "Plantilla Home"
 const TITULO_ACERCA_DE = "Plantilla Acerca de"
+const TITULO_MOSTRAR_NOMBRES = "Listado de nombres de los jugadores"
 
 const datosDescargadosPrueba = {
     mensaje: "Mensaje de prueba descargado",
@@ -20,7 +21,68 @@ const datosDescargadosPrueba = {
     fecha: "00/00/0000"
 }
 
+let jug1= {
+    data: {
+        nombre: "Tijana",
+        apellidos: "Boskovic",
+        nacimiento: {
+          dia: 8,
+          mes: 3,
+          año: 1997
+        },
+        pais_nacimiento: "Serbia",
+        participacionesMundial: [
+          2014,
+          2018
+        ],
+        numParticipaciones: 2,
+        club_actual: "Eczacibasi VitrA Istanbul",
+        posicion: "Opuesta"
+      }
+  }
 
+let jugadores = [
+{
+    data: {
+    nombre: "Tijana",
+    apellidos: "Boskovic",
+    nacimiento: {
+        dia: 8,
+        mes: 3,
+        año: 1997
+    },
+    pais_nacimiento: "Serbia",
+    participacionesMundial: [
+        2014,
+        2018
+    ],
+    numParticipaciones: 2,
+    club_actual: "Eczacibasi VitrA Istanbul",
+    posicion: "Opuesta"
+    }
+},
+{
+    data: {
+    nombre: "Nataliya",
+    apellidos: "Goncharova",
+    nacimiento: {
+        dia: 1,
+        mes: 6,
+        año: 1989
+    },
+    pais_nacimiento: "Rusia",
+    participacionesMundial: [
+        2010,
+        2014,
+        2018
+    ],
+    numParticipaciones: 3,
+    club_actual: "Dinamo Moscow",
+    posicion: "Opuesta"
+    }
+}
+];
+  
 // Función para esperar y dar tiempo a que responda el microservicio
 function esperar(ms) {
     var inicio = new Date().getTime();
@@ -124,11 +186,32 @@ describe("Plantilla.mostrarAcercaDe: ", function () {
 
     
 })
-describe("Plantilla.listarNombre: ", function () {
-    
+describe("Plantilla.soloNombre: ", function () {
+    it("muestra el nombre del jugador en cuestión correctamente",
+        function () {
+            Plantilla.soloNombre(jug1)
+            expect(Plantilla.soloNombre(jug1)).toBe(`<tr><td><em>${jug1.data.nombre}</em></td></tr>`)
+        })
+
     
 })
 
+describe("Plantilla.imprimeNombre: ", function (){
+    it("Muestra correctamente el titulo de la tabla. ",
+    function (){
+        Plantilla.imprimeNombre(jugadores)
+        expect(elementoTitulo.innerHTML).toBe(TITULO_MOSTRAR_NOMBRES)
+    }
+    )
+
+    it("Muestra correctamente el contenido de la tabla con los dos jugadores de prueba. ",
+    function (){
+        
+        Plantilla.imprimeNombre(jugadores)
+        expect(elementoContenido.innerHTML.search(jugadores[0].data.nombre)>= 0).toBeTrue();
+        expect(elementoContenido.innerHTML.search(jugadores[1].data.nombre)>= 0).toBeTrue();
+    }
+    )})
 /*
 IMPORTANTE
 ==========

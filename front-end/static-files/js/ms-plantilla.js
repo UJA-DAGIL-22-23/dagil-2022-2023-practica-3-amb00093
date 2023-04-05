@@ -175,7 +175,7 @@ Plantilla.imprimeNombre = function (vector) {
     msj += Plantilla.pieTable();
 
     // Borro toda la info de Article y la sustituyo por la que me interesa
-    Frontend.Article.actualizar( "Listado de jugadores", msj )
+    Frontend.Article.actualizar( "Listado de nombres de los jugadores", msj )
 
 }
 
