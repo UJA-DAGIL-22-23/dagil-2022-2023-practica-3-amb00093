@@ -179,6 +179,19 @@ Plantilla.imprimeNombre = function (vector) {
 
 }
 
+Plantilla.imprimeAlfabeticamente = function(vector) {
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    vector.sort(function(a, b){
+        return a.data.nombre.localeCompare(b.data.nombre);
+    });
+    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
+    msj += Plantilla.pieTable();
+
+    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar( "Listado de jugadores", msj )
+}
+
 Plantilla.cuerpoTr = function (p) {
     const d = p.data;
     const nac = d.nacimiento;
@@ -205,4 +218,7 @@ Plantilla.listarDatos = function(){
 }
 Plantilla.listarNombre = function(){
      this.recupera(this.imprimeNombre);
+}
+Plantilla.listarAlfabeticamente = function(){
+    this.recupera(this.imprimeAlfabeticamente);
 }

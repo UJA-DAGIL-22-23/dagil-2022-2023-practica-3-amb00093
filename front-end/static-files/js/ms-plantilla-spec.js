@@ -14,6 +14,7 @@ const TITULO_HOME = "Plantilla Home"
 const TITULO_ACERCA_DE = "Plantilla Acerca de"
 const TITULO_MOSTRAR_NOMBRES = "Listado de nombres de los jugadores"
 const TITULO_MOSTRAR_DATOS = "Listado de datos de los jugadores"
+const TITULO_MOSTRAR_ALFABETICAMENTE = "Listado de jugadores"
 
 const datosDescargadosPrueba = {
     mensaje: "Mensaje de prueba descargado",
@@ -81,7 +82,29 @@ let jugadores = [
     club_actual: "Dinamo Moscow",
     posicion: "Opuesta"
     }
-}
+},
+{
+    data: {
+      nombre: "Facundo",
+      apellidos: "Conte",
+      nacimiento: {
+        dia: 12,
+        mes: 8,
+        año: 1989
+      },
+      pais_nacimiento: "Argentina",
+      participacionesMundial: [
+        2010,
+        2014,
+        2018,
+        2022
+      ],
+      numParticipaciones: 4,
+      club_actual: "Modena Volley",
+      posicion: "Receptor-punta"
+    }
+  }
+  
 ];
   
 // Función para esperar y dar tiempo a que responda el microservicio
@@ -234,6 +257,27 @@ describe("Plantilla.listar: ", function (){
     }
     )
 })
+
+describe("Plantilla.listarAlfabeticamente: ", function (){
+    it("Muestra correctamente el titulo de la tabla. ",
+    function (){
+        Plantilla.imprimeAlfabeticamente(jugadores)
+        expect(elementoTitulo.innerHTML).toBe(TITULO_MOSTRAR_ALFABETICAMENTE)
+    }
+    )
+
+    it("Ordena correctamente el vector de jugadores ",
+    function (){
+        // Tijana, Nataliya, Facundo ---> Facundo, Nataliya, Tijana
+        Plantilla.imprimeAlfabeticamente(jugadores)
+        expect(jugadores[0].data.nombre).toBe("Facundo");
+        expect(jugadores[1].data.nombre).toBe("Nataliya");
+        expect(jugadores[2].data.nombre).toBe("Tijana");
+    }
+    )
+})
+
+
 /*
 IMPORTANTE
 ==========
