@@ -366,6 +366,24 @@ describe("Plantilla.listarAlfabeticamenteClub: ", function (){
     }
     )
 })
+
+describe("Plantilla.listarAlfabeticamentePosicion: ", function (){
+    it("Muestra correctamente el titulo de la tabla. ",
+    function (){
+        Plantilla.imprimeAlfabeticamentePosicion(jugadores)
+        expect(elementoTitulo.innerHTML).toBe(TITULO_MOSTRAR_ALFABETICAMENTE)
+    }
+    )
+
+    it("Ordena correctamente el vector de jugadores ",
+    function (){
+        Plantilla.imprimeAlfabeticamentePosicion(jugadores)
+        expect(jugadores[0].data.posicion).toBe("Opuesta");
+        expect(jugadores[1].data.posicion).toBe("Opuesta");
+        expect(jugadores[2].data.posicion).toBe("Receptor-punta");
+    }
+    )
+})
 /*
 IMPORTANTE
 ==========

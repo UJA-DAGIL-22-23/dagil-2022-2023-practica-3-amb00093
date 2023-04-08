@@ -249,6 +249,17 @@ Plantilla.imprimeAlfabeticamenteClub = function(vector){
     Frontend.Article.actualizar( "Listado de jugadores", msj )
 }
 
+Plantilla.imprimeAlfabeticamentePosicion = function(vector){
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    vector.sort(function(a, b){
+        return a.data.posicion.localeCompare(b.data.posicion);
+    });
+    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
+    msj += Plantilla.pieTable();
+    Frontend.Article.actualizar( "Listado de jugadores", msj )
+}
+
 Plantilla.cuerpoTr = function (p) {
     const d = p.data;
     const nac = d.nacimiento;
@@ -293,4 +304,7 @@ Plantilla.listarOrdenParticipaciones = function(){
 }
 Plantilla.listarAlfabeticamenteClub = function(){
     this.recupera(this.imprimeAlfabeticamenteClub);
+}
+Plantilla.listarAlfabeticamentePosicion = function(){
+    this.recupera(this.imprimeAlfabeticamentePosicion);
 }
