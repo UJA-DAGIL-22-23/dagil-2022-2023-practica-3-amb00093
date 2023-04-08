@@ -348,6 +348,24 @@ describe("Plantilla.listarOrdenParticipaciones: ", function (){
     }
     )
 })
+
+describe("Plantilla.listarAlfabeticamenteClub: ", function (){
+    it("Muestra correctamente el titulo de la tabla. ",
+    function (){
+        Plantilla.imprimeAlfabeticamenteClub(jugadores)
+        expect(elementoTitulo.innerHTML).toBe(TITULO_MOSTRAR_ALFABETICAMENTE)
+    }
+    )
+
+    it("Ordena correctamente el vector de jugadores ",
+    function (){
+        Plantilla.imprimeAlfabeticamenteClub(jugadores)
+        expect(jugadores[0].data.club_actual).toBe("Dinamo Moscow");
+        expect(jugadores[1].data.club_actual).toBe("Eczacibasi VitrA Istanbul");
+        expect(jugadores[2].data.club_actual).toBe("Modena Volley");
+    }
+    )
+})
 /*
 IMPORTANTE
 ==========
