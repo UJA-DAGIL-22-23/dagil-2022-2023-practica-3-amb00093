@@ -174,7 +174,6 @@ Plantilla.imprimeNombre = function (vector) {
     vector.forEach(e => msj += Plantilla.soloNombre(e))
     msj += Plantilla.pieTable();
 
-    // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar( "Listado de nombres de los jugadores", msj )
 
 }
@@ -188,7 +187,6 @@ Plantilla.imprimeAlfabeticamenteNombre = function(vector) {
     vector.forEach(e => msj += Plantilla.cuerpoTr(e))
     msj += Plantilla.pieTable();
 
-    // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar( "Listado de jugadores", msj )
 }
 
@@ -201,7 +199,20 @@ Plantilla.imprimeAlfabeticamenteApellidos = function(vector){
     vector.forEach(e => msj += Plantilla.cuerpoTr(e))
     msj += Plantilla.pieTable();
 
-    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar( "Listado de jugadores", msj )
+}
+
+
+Plantilla.imprimeOrdenFecha = function(vector){
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    vector.sort(function(jugador1, jugador2) {
+        let fechaNacimiento1 = new Date(jugador1.data.nacimiento.Año, jugador1.data.nacimiento.mes - 1, jugador1.data.nacimiento.dia);
+        let fechaNacimiento2 = new Date(jugador2.data.nacimiento.Año, jugador2.data.nacimiento.mes - 1, jugador2.data.nacimiento.dia);
+        return fechaNacimiento1 - fechaNacimiento2;})
+    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
+    msj += Plantilla.pieTable();
+
     Frontend.Article.actualizar( "Listado de jugadores", msj )
 }
 
@@ -213,10 +224,21 @@ Plantilla.imprimeAlfabeticamentePais = function(vector){
     });
     vector.forEach(e => msj += Plantilla.cuerpoTr(e))
     msj += Plantilla.pieTable();
-
-    // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar( "Listado de jugadores", msj )
 }
+
+Plantilla.imprimeOrdenParticipaciones = function(vector){
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    vector.sort(function(a, b){
+        return b.data.numParticipaciones - a.data.numParticipaciones;
+    });
+    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
+    msj += Plantilla.pieTable();
+    Frontend.Article.actualizar( "Listado de jugadores", msj )
+}
+
+
 Plantilla.cuerpoTr = function (p) {
     const d = p.data;
     const nac = d.nacimiento;
@@ -252,4 +274,10 @@ Plantilla.listarAlfabeticamenteApellidos = function(){
 }
 Plantilla.listarAlfabeticamentePais = function(){
     this.recupera(this.imprimeAlfabeticamentePais);
+}
+Plantilla.listarOrdenFecha = function(){
+    this.recupera(this.imprimeOrdenFecha);
+}
+Plantilla.listarOrdenParticipaciones = function(){
+    this.recupera(this.imprimeOrdenParticipaciones);
 }

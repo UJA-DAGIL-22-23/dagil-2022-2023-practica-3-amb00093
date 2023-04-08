@@ -51,7 +51,7 @@ let jugadores = [
     nacimiento: {
         dia: 8,
         mes: 3,
-        año: 1997
+        Año: 1997
     },
     pais_nacimiento: "Serbia",
     participacionesMundial: [
@@ -70,7 +70,7 @@ let jugadores = [
     nacimiento: {
         dia: 1,
         mes: 6,
-        año: 1989
+        Año: 1989
     },
     pais_nacimiento: "Rusia",
     participacionesMundial: [
@@ -90,7 +90,7 @@ let jugadores = [
       nacimiento: {
         dia: 12,
         mes: 8,
-        año: 1989
+        Año: 1989
       },
       pais_nacimiento: "Argentina",
       participacionesMundial: [
@@ -309,6 +309,42 @@ describe("Plantilla.listarAlfabeticamentePais: ", function (){
         expect(jugadores[0].data.pais_nacimiento).toBe("Argentina");
         expect(jugadores[1].data.pais_nacimiento).toBe("Rusia");
         expect(jugadores[2].data.pais_nacimiento).toBe("Serbia");
+    }
+    )
+})
+
+describe("Plantilla.listarOrdenFecha: ", function (){
+    it("Muestra correctamente el titulo de la tabla. ",
+    function (){
+        Plantilla.imprimeOrdenFecha(jugadores)
+        expect(elementoTitulo.innerHTML).toBe(TITULO_MOSTRAR_ALFABETICAMENTE)
+    }
+    )
+
+    it("Ordena correctamente el vector de jugadores ",
+    function (){
+        Plantilla.imprimeOrdenFecha(jugadores)
+        expect(jugadores[0].data.nacimiento).toEqual({dia:1, mes:6, Año:1989});
+        expect(jugadores[1].data.nacimiento).toEqual({dia: 12, mes: 8, Año: 1989});
+        expect(jugadores[2].data.nacimiento).toEqual({dia: 8, mes: 3, Año: 1997});
+    }
+    )
+})
+
+describe("Plantilla.listarOrdenParticipaciones: ", function (){
+    it("Muestra correctamente el titulo de la tabla. ",
+    function (){
+        Plantilla.imprimeOrdenParticipaciones(jugadores)
+        expect(elementoTitulo.innerHTML).toBe(TITULO_MOSTRAR_ALFABETICAMENTE)
+    }
+    )
+
+    it("Ordena correctamente el vector de jugadores ",
+    function (){
+        Plantilla.imprimeOrdenParticipaciones(jugadores)
+        expect(jugadores[0].data.numParticipaciones).toEqual(4);
+        expect(jugadores[1].data.numParticipaciones).toEqual(3);
+        expect(jugadores[2].data.numParticipaciones).toEqual(2);
     }
     )
 })
