@@ -258,10 +258,10 @@ describe("Plantilla.listar: ", function (){
     )
 })
 
-describe("Plantilla.listarAlfabeticamente: ", function (){
+describe("Plantilla.listarAlfabeticamenteNombre: ", function (){
     it("Muestra correctamente el titulo de la tabla. ",
     function (){
-        Plantilla.imprimeAlfabeticamente(jugadores)
+        Plantilla.imprimeAlfabeticamenteNombre(jugadores)
         expect(elementoTitulo.innerHTML).toBe(TITULO_MOSTRAR_ALFABETICAMENTE)
     }
     )
@@ -269,7 +269,7 @@ describe("Plantilla.listarAlfabeticamente: ", function (){
     it("Ordena correctamente el vector de jugadores ",
     function (){
         // Tijana, Nataliya, Facundo ---> Facundo, Nataliya, Tijana
-        Plantilla.imprimeAlfabeticamente(jugadores)
+        Plantilla.imprimeAlfabeticamenteNombre(jugadores)
         expect(jugadores[0].data.nombre).toBe("Facundo");
         expect(jugadores[1].data.nombre).toBe("Nataliya");
         expect(jugadores[2].data.nombre).toBe("Tijana");
@@ -277,7 +277,41 @@ describe("Plantilla.listarAlfabeticamente: ", function (){
     )
 })
 
+describe("Plantilla.listarAlfabeticamenteApellidos: ", function (){
+    it("Muestra correctamente el titulo de la tabla. ",
+    function (){
+        Plantilla.imprimeAlfabeticamenteApellidos(jugadores)
+        expect(elementoTitulo.innerHTML).toBe(TITULO_MOSTRAR_ALFABETICAMENTE)
+    }
+    )
 
+    it("Ordena correctamente el vector de jugadores ",
+    function (){
+        Plantilla.imprimeAlfabeticamenteApellidos(jugadores)
+        expect(jugadores[0].data.apellidos).toBe("Boskovic");
+        expect(jugadores[1].data.apellidos).toBe("Conte");
+        expect(jugadores[2].data.apellidos).toBe("Goncharova");
+    }
+    )
+})
+
+describe("Plantilla.listarAlfabeticamentePais: ", function (){
+    it("Muestra correctamente el titulo de la tabla. ",
+    function (){
+        Plantilla.imprimeAlfabeticamentePais(jugadores)
+        expect(elementoTitulo.innerHTML).toBe(TITULO_MOSTRAR_ALFABETICAMENTE)
+    }
+    )
+
+    it("Ordena correctamente el vector de jugadores ",
+    function (){
+        Plantilla.imprimeAlfabeticamentePais(jugadores)
+        expect(jugadores[0].data.pais_nacimiento).toBe("Argentina");
+        expect(jugadores[1].data.pais_nacimiento).toBe("Rusia");
+        expect(jugadores[2].data.pais_nacimiento).toBe("Serbia");
+    }
+    )
+})
 /*
 IMPORTANTE
 ==========

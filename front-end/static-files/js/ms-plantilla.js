@@ -179,7 +179,7 @@ Plantilla.imprimeNombre = function (vector) {
 
 }
 
-Plantilla.imprimeAlfabeticamente = function(vector) {
+Plantilla.imprimeAlfabeticamenteNombre = function(vector) {
     let msj = "";
     msj += Plantilla.cabeceraTable();
     vector.sort(function(a, b){
@@ -192,6 +192,31 @@ Plantilla.imprimeAlfabeticamente = function(vector) {
     Frontend.Article.actualizar( "Listado de jugadores", msj )
 }
 
+Plantilla.imprimeAlfabeticamenteApellidos = function(vector){
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    vector.sort(function(a, b){
+        return a.data.apellidos.localeCompare(b.data.apellidos);
+    });
+    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
+    msj += Plantilla.pieTable();
+
+    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar( "Listado de jugadores", msj )
+}
+
+Plantilla.imprimeAlfabeticamentePais = function(vector){
+    let msj = "";
+    msj += Plantilla.cabeceraTable();
+    vector.sort(function(a, b){
+        return a.data.pais_nacimiento.localeCompare(b.data.pais_nacimiento);
+    });
+    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
+    msj += Plantilla.pieTable();
+
+    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar( "Listado de jugadores", msj )
+}
 Plantilla.cuerpoTr = function (p) {
     const d = p.data;
     const nac = d.nacimiento;
@@ -219,6 +244,12 @@ Plantilla.listarDatos = function(){
 Plantilla.listarNombre = function(){
      this.recupera(this.imprimeNombre);
 }
-Plantilla.listarAlfabeticamente = function(){
-    this.recupera(this.imprimeAlfabeticamente);
+Plantilla.listarAlfabeticamenteNombre = function(){
+    this.recupera(this.imprimeAlfabeticamenteNombre);
+}
+Plantilla.listarAlfabeticamenteApellidos = function(){
+    this.recupera(this.imprimeAlfabeticamenteApellidos);
+}
+Plantilla.listarAlfabeticamentePais = function(){
+    this.recupera(this.imprimeAlfabeticamentePais);
 }
