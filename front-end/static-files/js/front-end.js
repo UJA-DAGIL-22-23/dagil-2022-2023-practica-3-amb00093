@@ -37,3 +37,20 @@ Frontend.Article.actualizar = function (titulo, contenido) {
     document.getElementById( Frontend.ID_SECCION_PRINCIPAL_CONTENIDO ).innerHTML = contenido
     return this;
 }
+
+
+/**
+ * Submenú para la opción mostrar datos
+ */
+const subMenuDatos = document.getElementById("sub-menu-datos");
+const mostrarDatos = document.querySelector('a[href="javascript:Plantilla.listarDatos()"]');
+
+mostrarDatos.addEventListener("click", () => {
+    subMenuDatos.style.display = "block";
+});
+
+document.addEventListener("click", (e) => {
+    if (e.target !== mostrarDatos) {
+        subMenuDatos.style.display = "none";
+    }
+});

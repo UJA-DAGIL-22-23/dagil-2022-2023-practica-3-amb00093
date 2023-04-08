@@ -1,9 +1,21 @@
-/**
- * @file ms-plantilla.css
- * @description Estilos aplicables a la visualización de elementos relacionados con el MS Plantilla
- * @author Víctor M. Rivas Santos <vrivas@ujaen.es>
- * @date 03-Feb-2023
- */
 
- 
-
+.mostrar {
+    position: relative;
+    display: inline-block;
+}
+.sub-menu {
+    position: relative;
+    display:block;
+    margin: .4em 0;
+    border: 2px solid rgba(100, 100, 100, 0.5);
+    border-radius: 0; /* Cambiar a 0 */
+    padding: .2em;
+    text-decoration: none;
+    color: inherit;
+    bottom: 1px;
+    left: 8px;
+    max-width: 880px;
+  }
+ .sub-menu:hover {
+    background-color: rgba(100, 100, 100, 0.3);
+  }
