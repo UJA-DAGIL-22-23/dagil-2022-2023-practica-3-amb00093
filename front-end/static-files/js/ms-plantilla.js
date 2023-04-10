@@ -18,7 +18,88 @@ Plantilla.datosDescargadosNulos = {
     fecha: ""
 }
 
+Plantilla.plantillaTags = {
+    "ID": "### ID ###",
+    "NOMBRE": "### NOMBRE ###",
+    "APELLIDOS": "### APELLIDOS ###",
+    "DIA": "### DIA ###",
+    "MES": "### MES ###",
+    "AÑO": "### AÑO ###",
+    "PAIS_NACIMIENTO": "### PAIS ###",
+    "PARTICIPACIONESMUNDIAL": "### PARTICIPACIONES MUNDIAL ###",
+    "NUMPARTICIPACIONES": "### NUMPARTICIPACIONES ###",
+    "CLUB_ACTUAL": "### CLUB ACTUAL ###",
+    "POSICION": "### POSICION ###"
 
+}
+
+Plantilla.plantillaTablaJugadores = {}
+
+
+// Cabecera de la tabla
+Plantilla.plantillaTablaJugadores.cabecera = `<table width="100%" class="listado-jugadores">
+                    <thead>
+                        <th width="10%">Id</th>
+                        <th width="20%">Nombre</th>
+                        <th width="20%">Apellidos</th>
+                        <th width="10%">Fecha de nacimiento</th>
+                        <th width="15%">País</th>
+                        <th width="15%">Participaciones mundial</th>
+                        <th width="15%">Número de participaciones</th>
+                        <th width="15%">Club actual</th>
+                        <th width="15%">Posición</th>
+                    </thead>
+                    <tbody>
+    `;
+
+// Elemento TR que muestra los datos de una persona
+Plantilla.plantillaTablaJugadores.cuerpo = `
+    <tr>
+        <td>${Plantilla.plantillaTags.ID}</td>
+        <td>${Plantilla.plantillaTags.NOMBRE}</td>
+        <td>${Plantilla.plantillaTags.APELLIDOS}</td>
+        <td>${Plantilla.plantillaTags.DIA}/${Plantilla.plantillaTags.MES}/${Plantilla.plantillaTags.AÑO}</td>
+        <td>${Plantilla.plantillaTags.PAIS_NACIMIENTO}</td>
+        <td>${Plantilla.plantillaTags.PARTICIPACIONESMUNDIAL}</td>
+        <td>${Plantilla.plantillaTags.NUMPARTICIPACIONES}</td>
+        <td>${Plantilla.plantillaTags.CLUB_ACTUAL}</td>
+        <td>${Plantilla.plantillaTags.POSICION}</td>
+        
+    </tr>
+    `;
+
+// Pie de la tabla
+Plantilla.plantillaTablaJugadores.pie = `        </tbody>
+             </table>
+             `;
+
+
+
+
+
+Plantilla.sustituyeTags = function (plantilla, jugador) {
+    return plantilla
+        .replace(new RegExp(Plantilla.plantillaTags.ID, 'g'), jugador.ref['@ref'].id)
+        .replace(new RegExp(Plantilla.plantillaTags.NOMBRE, 'g'), jugador.data.nombre)
+        .replace(new RegExp(Plantilla.plantillaTags.APELLIDOS, 'g'), jugador.data.apellidos)
+        .replace(new RegExp(Plantilla.plantillaTags.DIA, 'g'), jugador.data.nacimiento.dia)
+        .replace(new RegExp(Plantilla.plantillaTags.MES, 'g'), jugador.data.nacimiento.mes)
+        .replace(new RegExp(Plantilla.plantillaTags.AÑO, 'g'), jugador.data.nacimiento.Año)
+        .replace(new RegExp(Plantilla.plantillaTags.PAIS_NACIMIENTO, 'g'), jugador.data.pais_nacimiento)
+        .replace(new RegExp(Plantilla.plantillaTags.PARTICIPACIONESMUNDIAL, 'g'), jugador.data.participacionesMundial)
+        .replace(new RegExp(Plantilla.plantillaTags.NUMPARTICIPACIONES, 'g'), jugador.data.numParticipaciones)
+        .replace(new RegExp(Plantilla.plantillaTags.CLUB_ACTUAL, 'g'), jugador.data.club_actual)
+        .replace(new RegExp(Plantilla.plantillaTags.POSICION, 'g'), jugador.data.posicion)
+}
+
+/**
+ * Actualiza el cuerpo de la tabla con los datos de la persona que se le pasa
+ * @param {Persona} Persona Objeto con los datos de la persona que queremos escribir en el TR
+ * @returns La plantilla del cuerpo de la tabla con los datos actualizados 
+ */
+Plantilla.plantillaTablaJugadores.actualiza = function (jugador) {
+    return Plantilla.sustituyeTags(this.cuerpo, jugador)
+}
 /**
  * Función que descarga la info MS Plantilla al llamar a una de sus rutas
  * @param {string} ruta Ruta a descargar
@@ -153,10 +234,9 @@ Plantilla.pieTable = function () {
 
 Plantilla.imprime = function (vector) {
     //console.log( vector ) // Para comprobar lo que hay en vector
-    let msj = "";
-    msj += Plantilla.cabeceraTable();
-    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
-    msj += Plantilla.pieTable();
+    let msj = Plantilla.plantillaTablaJugadores.cabecera
+    vector.forEach(e => msj += Plantilla.plantillaTablaJugadores.actualiza(e))
+    msj += Plantilla.plantillaTablaJugadores.pie
 
     // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar( "Listado de datos de los jugadores", msj )
@@ -179,84 +259,79 @@ Plantilla.imprimeNombre = function (vector) {
 }
 
 Plantilla.imprimeAlfabeticamenteNombre = function(vector) {
-    let msj = "";
-    msj += Plantilla.cabeceraTable();
+    
+    let msj = Plantilla.plantillaTablaJugadores.cabecera
     vector.sort(function(a, b){
         return a.data.nombre.localeCompare(b.data.nombre);
     });
-    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
-    msj += Plantilla.pieTable();
+    
+    vector.forEach(e => msj += Plantilla.plantillaTablaJugadores.actualiza(e))
+    msj += Plantilla.plantillaTablaJugadores.pie
 
     Frontend.Article.actualizar( "Listado de jugadores", msj )
 }
 
 Plantilla.imprimeAlfabeticamenteApellidos = function(vector){
-    let msj = "";
-    msj += Plantilla.cabeceraTable();
+    let msj = Plantilla.plantillaTablaJugadores.cabecera
     vector.sort(function(a, b){
         return a.data.apellidos.localeCompare(b.data.apellidos);
     });
-    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
-    msj += Plantilla.pieTable();
+    vector.forEach(e => msj += Plantilla.plantillaTablaJugadores.actualiza(e))
+    msj += Plantilla.plantillaTablaJugadores.pie
 
     Frontend.Article.actualizar( "Listado de jugadores", msj )
 }
 
 
 Plantilla.imprimeOrdenFecha = function(vector){
-    let msj = "";
-    msj += Plantilla.cabeceraTable();
+    let msj = Plantilla.plantillaTablaJugadores.cabecera
     vector.sort(function(jugador1, jugador2) {
         let fechaNacimiento1 = new Date(jugador1.data.nacimiento.Año, jugador1.data.nacimiento.mes - 1, jugador1.data.nacimiento.dia);
         let fechaNacimiento2 = new Date(jugador2.data.nacimiento.Año, jugador2.data.nacimiento.mes - 1, jugador2.data.nacimiento.dia);
         return fechaNacimiento1 - fechaNacimiento2;})
-    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
-    msj += Plantilla.pieTable();
+        vector.forEach(e => msj += Plantilla.plantillaTablaJugadores.actualiza(e))
+        msj += Plantilla.plantillaTablaJugadores.pie
 
     Frontend.Article.actualizar( "Listado de jugadores", msj )
 }
 
 Plantilla.imprimeAlfabeticamentePais = function(vector){
-    let msj = "";
-    msj += Plantilla.cabeceraTable();
+    let msj = Plantilla.plantillaTablaJugadores.cabecera
     vector.sort(function(a, b){
         return a.data.pais_nacimiento.localeCompare(b.data.pais_nacimiento);
     });
-    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
-    msj += Plantilla.pieTable();
+    vector.forEach(e => msj += Plantilla.plantillaTablaJugadores.actualiza(e))
+    msj += Plantilla.plantillaTablaJugadores.pie
     Frontend.Article.actualizar( "Listado de jugadores", msj )
 }
 
 Plantilla.imprimeOrdenParticipaciones = function(vector){
-    let msj = "";
-    msj += Plantilla.cabeceraTable();
+    let msj = Plantilla.plantillaTablaJugadores.cabecera
     vector.sort(function(a, b){
         return b.data.numParticipaciones - a.data.numParticipaciones;
     });
-    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
-    msj += Plantilla.pieTable();
+    vector.forEach(e => msj += Plantilla.plantillaTablaJugadores.actualiza(e))
+    msj += Plantilla.plantillaTablaJugadores.pie
     Frontend.Article.actualizar( "Listado de jugadores", msj )
 }
 
 Plantilla.imprimeAlfabeticamenteClub = function(vector){
-    let msj = "";
-    msj += Plantilla.cabeceraTable();
+    let msj = Plantilla.plantillaTablaJugadores.cabecera
     vector.sort(function(a, b){
         return a.data.club_actual.localeCompare(b.data.club_actual);
     });
-    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
-    msj += Plantilla.pieTable();
+    vector.forEach(e => msj += Plantilla.plantillaTablaJugadores.actualiza(e))
+    msj += Plantilla.plantillaTablaJugadores.pie
     Frontend.Article.actualizar( "Listado de jugadores", msj )
 }
 
 Plantilla.imprimeAlfabeticamentePosicion = function(vector){
-    let msj = "";
-    msj += Plantilla.cabeceraTable();
+    let msj = Plantilla.plantillaTablaJugadores.cabecera
     vector.sort(function(a, b){
         return a.data.posicion.localeCompare(b.data.posicion);
     });
-    vector.forEach(e => msj += Plantilla.cuerpoTr(e))
-    msj += Plantilla.pieTable();
+    vector.forEach(e => msj += Plantilla.plantillaTablaJugadores.actualiza(e))
+    msj += Plantilla.plantillaTablaJugadores.pie
     Frontend.Article.actualizar( "Listado de jugadores", msj )
 }
 
@@ -283,6 +358,7 @@ Plantilla.soloNombre = function (p){
 
 Plantilla.listarDatos = function(){
     this.recupera(this.imprime);
+
 }
 Plantilla.listarNombre = function(){
      this.recupera(this.imprimeNombre);
