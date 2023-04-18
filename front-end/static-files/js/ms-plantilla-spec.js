@@ -45,6 +45,11 @@ let jug1= {
 
 let jugadores = [
 {
+    ref: {
+        "@ref": {
+            id: "ref jug 1"
+        }
+    },
     data: {
     nombre: "Tijana",
     apellidos: "Boskovic",
@@ -64,6 +69,11 @@ let jugadores = [
     }
 },
 {
+    ref: {
+        "@ref": {
+            id: "ref jug 2"
+        }
+    },
     data: {
     nombre: "Nataliya",
     apellidos: "Goncharova",
@@ -84,6 +94,11 @@ let jugadores = [
     }
 },
 {
+    ref: {
+        "@ref": {
+            id: "ref jug 3"
+        }
+    },
     data: {
       nombre: "Facundo",
       apellidos: "Conte",
