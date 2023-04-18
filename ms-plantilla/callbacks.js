@@ -76,6 +76,20 @@ const CB_MODEL_SELECTS = {
             CORS(res).status(500).json({ error: error.description })
         }
     },
+    getPorId: async (req, res) => {
+        try {
+            // console.log( "getPorId req", req.params.idPersona ) // req.params contiene todos los parámetros de la llamada
+            let jugador1 = await client.query(
+                q.Get(q.Ref(q.Collection(COLLECTION), req.params.idJugador))
+            )
+            // console.log( persona ) // Para comprobar qué se ha devuelto en persona
+            CORS(res)
+                .status(200)
+                .json(jugador1)
+        } catch (error) {
+            CORS(res).status(500).json({ error: error.description })
+        }
+    },
 }
 
 

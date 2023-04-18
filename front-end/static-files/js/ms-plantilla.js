@@ -214,6 +214,21 @@ Plantilla.recupera = async function (callBackFn) {
     }
 }
 
+
+Plantilla.recuperaUnaPersona = async function (idJug, callBackFn) {
+    try {
+        const url = Frontend.API_GATEWAY + "/plantilla/getPorId/" + idJug
+
+        const response = await fetch(url);
+        if (response) {
+            const jugador1 = await response.json()
+            callBackFn(jugador1)
+        }
+    } catch (error) {
+        alert("Error: No se han podido acceder al API Gateway")
+        console.error(error)
+    }
+}
 /**
  * Crea la cabecera para mostrar la info en una tabla
  * @returns cabecera de la tabla
@@ -335,26 +350,23 @@ Plantilla.imprimeAlfabeticamentePosicion = function(vector){
     Frontend.Article.actualizar( "Listado de jugadores", msj )
 }
 
-Plantilla.cuerpoTr = function (p) {
-    const d = p.data;
-    const nac = d.nacimiento;
-    return `
-    <td><em>${d.nombre}</em></td>
-    <td>${d.apellidos}</td>
-    <td>${nac.dia}/${nac.mes}/${nac.Año}</td>
-    <td>${d.pais_nacimiento}</td>
-    <td>${d.participacionesMundial}</td>
-    <td>${d.numParticipaciones}</td>
-    <td>${d.club_actual}</td>
-    <td>${d.posicion}</td>
-    </tr>
-    `;
-}
-
 Plantilla.soloNombre = function (p){
     const d = p.data;
     return `<tr><td><em>${d.nombre}</em></td></tr>`
 }
+
+
+
+Plantilla.imprimeJugador = function (jugador) {
+    // console.log(persona) // Para comprobar lo que hay en vector
+    let msj = Plantilla.plantillaTablaJugadores.cabecera;
+    msj += Plantilla.plantillaTablaJugadores.actualiza(jugador);
+    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar("Mostrar un jugador", msj)
+    // Actualiza el objeto que guarda los datos mostrados
+    
+}
+
 
 Plantilla.listarDatos = function(){
     this.recupera(this.imprime);
@@ -383,4 +395,7 @@ Plantilla.listarAlfabeticamenteClub = function(){
 }
 Plantilla.listarAlfabeticamentePosicion = function(){
     this.recupera(this.imprimeAlfabeticamentePosicion);
+}
+Plantilla.mostrar = function (idJug) {
+    this.recuperaUnaPersona(idJug, this.imprimeJugador);
 }
