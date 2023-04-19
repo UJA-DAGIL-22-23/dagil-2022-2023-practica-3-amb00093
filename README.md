@@ -65,7 +65,7 @@
  **Captura funcionamiento**<br> </br>
  <img src='./assets/img/Func_INCR04.png?raw=true' width='600px'>
  
-   ### Incremento nº4: 
+   ### Incremento nº5: 
  En este incremento, se implementó la HU05, que consistía en mostrar una tabla que mostrara los datos de todos los jugadores ordenados por el campo que el usuario quiera
  
 **Captura inicio** <br>  </br>
@@ -76,3 +76,15 @@
  
  **Captura funcionamiento**<br> </br>
  <img src='./assets/img/Func_INCR05.png?raw=true' width='600px'>
+ 
+ ### Incremento nº6
+ En este incremento, se implementó la HU06, que consistía en mostrar los datos de un jugador localizado según el id dado como parámetro
+ 
+**Captura inicio** <br>  </br>
+<img src='./assets/img/Cap_Inicio_INCR06.png?raw=true' width='600px'>
+
+ **Captura final** <br>  </br>
+<img src='./assets/img/Cap_Final_INCR06.png?raw=true' width='600px'>
+ 
+ **Captura funcionamiento**<br> </br>
+ <img src='./assets/img/Func_INCR06.png?raw=true' width='600px'>
