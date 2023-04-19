@@ -15,7 +15,8 @@ const TITULO_ACERCA_DE = "Plantilla Acerca de"
 const TITULO_MOSTRAR_NOMBRES = "Listado de nombres de los jugadores"
 const TITULO_MOSTRAR_DATOS = "Listado de datos de los jugadores"
 const TITULO_MOSTRAR_ALFABETICAMENTE = "Listado de jugadores"
-
+const TITULO_MOSTRAR_JUGADOR = "Mostrar un jugador"
+ 
 const datosDescargadosPrueba = {
     mensaje: "Mensaje de prueba descargado",
     autor: "Prueba de autor",
@@ -398,6 +399,24 @@ describe("Plantilla.listarAlfabeticamentePosicion: ", function (){
         expect(jugadores[2].data.posicion).toBe("Receptor-punta");
     }
     )
+})
+
+describe("Plantilla.mostrarJugador(): ", function(){
+    it("Muestra correctamente el titulo de la tabla. ",
+    function(){
+        Plantilla.imprimeJugador(jugadores[0])
+        expect(elementoTitulo.innerHTML).toBe(TITULO_MOSTRAR_JUGADOR)
+    }
+    )
+    it("Muestra correctamente los datos del jugador ",
+    function(){
+        Plantilla.imprimeJugador(jugadores[0])
+        expect(elementoContenido.innerHTML.search(jugadores[0].data.nombre)>= 0).toBeTrue();
+        expect(elementoContenido.innerHTML.search(jugadores[0].data.apellidos)>= 0).toBeTrue();
+        expect(elementoContenido.innerHTML.search(jugadores[0].data.posicion)>= 0).toBeTrue();
+    }
+    )
+
 })
 /*
 IMPORTANTE

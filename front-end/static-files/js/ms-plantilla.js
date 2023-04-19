@@ -129,7 +129,7 @@ Plantilla.descargarRuta = async function (ruta, callBackFn) {
 
 
 /**
- * Función principal para mostrar los datos enviados por la ruta "home" de MS Plantilla
+ * Función principal para mostrarJugador los datos enviados por la ruta "home" de MS Plantilla
  */
 Plantilla.mostrarHome = function (datosDescargados) {
     // Si no se ha proporcionado valor para datosDescargados
@@ -145,7 +145,7 @@ Plantilla.mostrarHome = function (datosDescargados) {
 }
 
 /**
- * Función principal para mostrar los datos enviados por la ruta "acerca de" de MS Plantilla
+ * Función principal para mostrarJugador los datos enviados por la ruta "acerca de" de MS Plantilla
  */
 Plantilla.mostrarAcercaDe = function (datosDescargados) {
     // Si no se ha proporcionado valor para datosDescargados
@@ -215,7 +215,7 @@ Plantilla.recupera = async function (callBackFn) {
 }
 
 
-Plantilla.recuperaUnaPersona = async function (idJug, callBackFn) {
+Plantilla.recuperaUnJugador = async function (idJug, callBackFn) {
     try {
         const url = Frontend.API_GATEWAY + "/plantilla/getPorId/" + idJug
 
@@ -230,7 +230,7 @@ Plantilla.recuperaUnaPersona = async function (idJug, callBackFn) {
     }
 }
 /**
- * Crea la cabecera para mostrar la info en una tabla
+ * Crea la cabecera para mostrarJugador la info en una tabla
  * @returns cabecera de la tabla
  */
 
@@ -361,6 +361,7 @@ Plantilla.imprimeJugador = function (jugador) {
     // console.log(persona) // Para comprobar lo que hay en vector
     let msj = Plantilla.plantillaTablaJugadores.cabecera;
     msj += Plantilla.plantillaTablaJugadores.actualiza(jugador);
+    msj += Plantilla.plantillaTablaJugadores.pie;
     // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar("Mostrar un jugador", msj)
     // Actualiza el objeto que guarda los datos mostrados
@@ -396,6 +397,6 @@ Plantilla.listarAlfabeticamenteClub = function(){
 Plantilla.listarAlfabeticamentePosicion = function(){
     this.recupera(this.imprimeAlfabeticamentePosicion);
 }
-Plantilla.mostrar = function (idJug) {
-    this.recuperaUnaPersona(idJug, this.imprimeJugador);
+Plantilla.mostrarJugador = function (idJug) {
+    this.recuperaUnJugador(idJug, this.imprimeJugador);
 }
