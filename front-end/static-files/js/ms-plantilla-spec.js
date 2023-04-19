@@ -418,6 +418,40 @@ describe("Plantilla.mostrarJugador(): ", function(){
     )
 
 })
+
+describe("Plantilla.mostrarOtroJugador(): ", function(){
+    it("Muestra correctamente el titulo de la tabla. ",
+    function(){
+        Plantilla.imprimeOtroJugador(jugadores)
+        expect(elementoTitulo.innerHTML).toBe(TITULO_MOSTRAR_JUGADOR)
+    }
+    )
+    it("Pasa correctamente al siguiente jugador",
+    function(){
+        hacia_donde = 1;
+        pos = 0; // Empieza en el jugador 0
+        Plantilla.imprimeOtroJugador(jugadores);
+        expect(elementoContenido.innerHTML.search(jugadores[1].data.nombre)>= 0).toBeTrue(); // Muestra el jugador 1
+
+        pos = 1; // Empieza en el jugador 1
+        Plantilla.imprimeOtroJugador(jugadores);
+        expect(elementoContenido.innerHTML.search(jugadores[2].data.nombre)>= 0).toBeTrue(); // Muestra el jugador 2
+    }
+    )
+    it("Vuelve correctamente al jugador anterior",
+    function(){
+        hacia_donde = -1;
+        pos = 0; // Empieza en el jugador 0
+        Plantilla.imprimeOtroJugador(jugadores);
+        expect(elementoContenido.innerHTML.search(jugadores[2].data.nombre)>= 0).toBeTrue(); // Muestra el jugador 2
+
+        pos = 1; // Empieza en el jugador 1
+        Plantilla.imprimeOtroJugador(jugadores);
+        expect(elementoContenido.innerHTML.search(jugadores[0].data.nombre)>= 0).toBeTrue(); // Muestra el jugador 0
+    }
+    )
+
+})
 /*
 IMPORTANTE
 ==========

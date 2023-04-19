@@ -9,7 +9,8 @@
 
 /// Creo el espacio de nombres
 let Plantilla = {};
-
+var hacia_donde;
+var pos = 0;
 // Plantilla de datosDescargados vacíos
 Plantilla.datosDescargadosNulos = {
     mensaje: "Datos Descargados No válidos",
@@ -367,6 +368,28 @@ Plantilla.imprimeJugador = function (jugador) {
     // Actualiza el objeto que guarda los datos mostrados
     
 }
+Plantilla.imprimeOtroJugador = function (vector) {
+    //console.log(hacia_donde);
+    if (hacia_donde == 1){
+        if (pos >= vector.length - 1){
+            pos = 0;
+        }
+        //console.log(pos)
+        pos++
+        //console.log(vector[pos].ref['@ref'].id);
+        Plantilla.imprimeJugador(vector[pos]);
+    }
+
+    if (hacia_donde == -1){
+        if (pos <= 0){
+            pos = vector.length;
+        }
+        //console.log(pos)
+        pos--
+        //console.log(vector[pos].ref['@ref'].id);
+        Plantilla.imprimeJugador(vector[pos]);
+    }
+}
 
 
 Plantilla.listarDatos = function(){
@@ -399,4 +422,8 @@ Plantilla.listarAlfabeticamentePosicion = function(){
 }
 Plantilla.mostrarJugador = function (idJug) {
     this.recuperaUnJugador(idJug, this.imprimeJugador);
+}
+Plantilla.mostrarOtroJugador = function (hacia){
+    hacia_donde = hacia;
+    this.recupera(this.imprimeOtroJugador); 
 }
