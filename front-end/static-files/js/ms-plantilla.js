@@ -128,7 +128,7 @@ Plantilla.plantillaFormularioJugador.formulario = `
                         name="numPart_jug"/></td>
 
                     <td><input type="text" class="form-jug-elemento editable" disabled
-                        id="form-jug-club_actual" required value="${Plantilla.plantillaTags.NUMPARTICIPACIONES}" 
+                        id="form-jug-club" required value="${Plantilla.plantillaTags.NUMPARTICIPACIONES}" 
                         name="numPart_jug"/></td>
                 <td><input type="text" class="form-jug-elemento editable" disabled
                         id="form-jug-posicion" required value="${Plantilla.plantillaTags.POSICION}" 
@@ -576,5 +576,4 @@ Plantilla.mostrarOtroJugador = function (hacia){
     hacia_donde = hacia;
     this.recupera(this.imprimeOtroJugador); 
 }
-
 

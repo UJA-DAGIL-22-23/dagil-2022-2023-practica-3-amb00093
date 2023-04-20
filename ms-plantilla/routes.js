@@ -69,5 +69,13 @@ router.get("/getPorId/:idJugador", async (req, res) => {
         console.log(error);
     }
 });
+
+router.post("/setTodo", async (req, res) => {
+    try {
+        await callbacks.setTodo(req, res)
+    } catch (error) {
+        console.log(error);
+    }
+});
 // Exporto el módulo para poder usarlo en server
 module.exports = router;
