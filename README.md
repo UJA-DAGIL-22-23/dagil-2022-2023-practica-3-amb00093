@@ -88,3 +88,17 @@
  
  **Captura funcionamiento**<br> </br>
  <img src='./assets/img/Func_INCR06.png?raw=true' width='600px'>
+ 
+  ### Incremento nº7
+ En este incremento, se implementó la HU07, que consistía en poder avanzar o retroceder entre los jugadores con un click, mostrando los datos de cada jugador
+ 
+**Captura inicio** <br>  </br>
+<img src='./assets/img/Cap_Inicio_INCR07.png?raw=true' width='600px'>
+
+ **Captura final** <br>  </br>
+<img src='./assets/img/Cap_Final_INCR07.png?raw=true' width='600px'>
+ 
+ **Capturas funcionamiento**<br> </br>
+ <img src='./assets/img/Func_INCR07-1.png?raw=true' width='600px'>
+  <img src='./assets/img/Func_INCR07-2.png?raw=true' width='600px'>
+
