@@ -13,6 +13,10 @@ let Frontend = {};
 Frontend.API_GATEWAY = "http://localhost:8001"
 
 /// Algunas constantes relacionadas con CSS y HTML
+/// Algunas constantes relacionadas con CSS y HTML
+Frontend.CLASS_MOSTRAR = "mostrar"
+Frontend.CLASS_OCULTAR = "ocultar"
+
 Frontend.ID_SECCION_PRINCIPAL = "seccion-principal"
 Frontend.ID_SECCION_PRINCIPAL_TITULO = "seccion-principal-titulo"
 Frontend.ID_SECCION_PRINCIPAL_CONTENIDO = "seccion-principal-contenido"
@@ -54,3 +58,66 @@ document.addEventListener("click", (e) => {
         subMenuDatos.style.display = "none";
     }
 });
+
+
+Frontend.Article.borrarTitulo = function () {
+    document.getElementById(Frontend.ID_SECCION_PRINCIPAL_TITULO).innerHTML = "";
+    return this;
+}
+
+Frontend.Article.borrarContenido = function () {
+    document.getElementById(Frontend.ID_SECCION_PRINCIPAL_CONTENIDO).innerHTML = "";
+    return this;
+}
+
+Frontend.Article.borrar = function () {
+    return this.borrarTitulo().borrarContenido();
+}
+
+Frontend.Article.aniadirTitulo = function (texto) {
+    texto = texto || ""
+    document.getElementById(Frontend.ID_SECCION_PRINCIPAL_TITULO).innerHTML += "\n" + texto;
+    return this;
+}
+
+Frontend.Article.aniadirContenido = function (texto) {
+    
+    document.getElementById(Frontend.ID_SECCION_PRINCIPAL_CONTENIDO).innerHTML += "\n" + texto;
+    return this;
+}
+
+
+
+Frontend.quitarClase = function (elemento, nombreClase) {
+    elemento = (typeof elemento === "string") ? document.getElementById(elemento) : elemento;
+    let clase = elemento.getAttribute("class")
+    clase = clase?clase:""
+    clase = clase.split(" ") // Separo la cadena por " "
+        .filter(e => e) // Quito las cadenas vacías que pudiera haber
+        .filter(e => e != nombreClase) // Quito la cadena indicada por nombreClase
+        .join(" ") // creo una sola cadena con todas las clases separadas por espacios
+    elemento.setAttribute("class", clase)
+
+    return this;
+}
+
+Frontend.aniadirClase = function (elemento, nombreClase) {
+    elemento = (typeof elemento === "string") ? document.getElementById(elemento) : elemento;
+    let clase = elemento.getAttribute("class")
+    clase = clase?clase:""
+    clase = clase.split(" ") // Separo la cadena por " "
+        .filter(e => e) // Quito las cadenas vacías que pudiera haber
+        .filter(e => e != nombreClase) // Quito la cadena indicada por nombreClase, por si ya estuviera
+        .concat(nombreClase) // Añado la clase indicada en nombreClase
+        .join(" ") // creo una sola cadena con todas las clases separadas por espacios
+    elemento.setAttribute("class", clase)
+
+    return this;
+}
+
+Frontend.Article.mostrar = function () {
+    let article = document.getElementById(Frontend.ID_SECCION_PRINCIPAL);
+    Frontend.quitarClase(Frontend.ID_SECCION_PRINCIPAL, Frontend.CLASS_OCULTAR)
+        .aniadirClase(Frontend.ID_SECCION_PRINCIPAL, Frontend.CLASS_MOSTRAR)
+
+}

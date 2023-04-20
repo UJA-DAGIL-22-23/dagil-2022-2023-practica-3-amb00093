@@ -12,6 +12,17 @@ let Plantilla = {};
 var hacia_donde;
 var pos = 0;
 
+Plantilla.form = {
+    NOMBRE: "form-jug-nombre",
+    APELLIDOS: "form-jug-apellidos",
+    NACIMIENTO: "form-jug-nac",
+    PAIS: "form-jug-pais",
+    PARTICIPACIONESMUNDIAL: "form-jug-part",
+    NUMPARTICIPACIONES: "form-jug-numPart",
+    CLUB: "form-jug-club",
+    POSICION: "form-jug-posicion",
+}
+
 
 Plantilla.jugadorMostrado = null
 // Plantilla de datosDescargados vacíos
@@ -120,16 +131,17 @@ Plantilla.plantillaFormularioJugador.formulario = `
                         name="pais_jug"/></td>
 
                 <td><input type="text" class="form-jug-elemento editable" disabled
-                        id="form-jug-pais" required value="${Plantilla.plantillaTags.PARTICIPACIONESMUNDIAL}" 
-                        name="pais_jug"/></td>
+                        id="form-jug-part" required value="${Plantilla.plantillaTags.PARTICIPACIONESMUNDIAL}" 
+                        name="part_jug"/></td>
                 
                 <td><input type="number" class="form-jug-elemento editable" disabled
-                        id="form-jug-numParticipaciones" required value="${Plantilla.plantillaTags.NUMPARTICIPACIONES}" 
+                        id="form-jug-numPart" required value="${Plantilla.plantillaTags.NUMPARTICIPACIONES}" 
                         name="numPart_jug"/></td>
 
                     <td><input type="text" class="form-jug-elemento editable" disabled
-                        id="form-jug-club" required value="${Plantilla.plantillaTags.NUMPARTICIPACIONES}" 
-                        name="numPart_jug"/></td>
+                        id="form-jug-club" required value="${Plantilla.plantillaTags.CLUB_ACTUAL}" 
+                        name="club_jug"/></td>
+                        
                 <td><input type="text" class="form-jug-elemento editable" disabled
                         id="form-jug-posicion" required value="${Plantilla.plantillaTags.POSICION}" 
                         name="posicion_jug"/></td>
@@ -577,3 +589,56 @@ Plantilla.mostrarOtroJugador = function (hacia){
     this.recupera(this.imprimeOtroJugador); 
 }
 
+
+Plantilla.guardar = async function () {
+    try {
+        let url = Frontend.API_GATEWAY + "/plantilla/setTodo"
+        let id_jugador = document.getElementById("form-jug-id").value
+        /*
+        console.log(id_jugador)
+        console.log(document.getElementById("form-jug-nombre").value)
+        console.log(document.getElementById("form-jug-apellidos").value)
+        console.log(document.getElementById("form-jug-nombre").value)
+        console.log(document.getElementById("form-jug-nac").value)
+        console.log(document.getElementById("form-jug-pais").value)
+        console.log(document.getElementById("form-jug-part").value)
+        console.log(document.getElementById("form-jug-numPart").value)
+        console.log(document.getElementById("form-jug-club").value)
+        console.log(document.getElementById("form-jug-posicion").value)
+        */
+
+        const response = await fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'no-cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'omit', // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+            body: JSON.stringify({
+                //"id_jug": id_jugador,
+                "nombre_jug": document.getElementById("form-jug-nombre").value,
+                "apellidos_jug": document.getElementById("form-jug-apellidos").value,
+                "nac_jug": document.getElementById("form-jug-nac").value,
+                "pais_jug": document.getElementById("form-jug-pais").value,
+                "part_jug": document.getElementById("form-jug-part").value,
+                "numPart_jug": document.getElementById("form-jug-numPart").value,
+                "club_jug": document.getElementById("form-jug-club").value,
+                "posicion_jug": document.getElementById("form-jug-posicion").value,
+            }), // body data type must match "Content-Type" header
+        })
+        /*
+        Error: No procesa bien la respuesta devuelta
+        if (response) {
+            const persona = await response.json()
+            alert(persona)
+        }
+        */
+        Plantilla.mostrarJugador(id_jugador)
+    } catch (error) {
+        alert("Error: No se han podido acceder al API Gateway " + error)
+        console.error(error)
+    }
+}
