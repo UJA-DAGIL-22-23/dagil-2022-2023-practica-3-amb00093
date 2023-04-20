@@ -11,6 +11,9 @@
 let Plantilla = {};
 var hacia_donde;
 var pos = 0;
+
+
+Plantilla.jugadorMostrado = null
 // Plantilla de datosDescargados vacíos
 Plantilla.datosDescargadosNulos = {
     mensaje: "Datos Descargados No válidos",
@@ -75,6 +78,153 @@ Plantilla.plantillaTablaJugadores.pie = `        </tbody>
              `;
 
 
+
+Plantilla.plantillaFormularioJugador = {}
+
+
+Plantilla.plantillaFormularioJugador.formulario = `
+<form method='post' action=''>
+    <table width="100%" class="listado-jugadores">
+        <thead>
+        <th width="10%">Id</th>
+        <th width="20%">Nombre</th>
+        <th width="20%">Apellidos</th>
+        <th width="10%">Fecha de nacimiento</th>
+        <th width="15%">País</th>
+        <th width="15%">Participaciones mundial</th>
+        <th width="15%">Número de participaciones</th>
+        <th width="15%">Club actual</th>
+        <th width="15%">Posición</th>
+        <th width="25%">Acciones</th>
+        </thead>
+        <tbody>
+            <tr title="${Plantilla.plantillaTags.ID}">
+                <td><input type="text" class="form-jug-elemento" disabled id="form-jug-id"
+                        value="${Plantilla.plantillaTags.ID}" 
+                        name="id_jug"/></td>
+
+                <td><input type="text" class="form-jug-elemento editable" disabled
+                        id="form-jug-nombre" required value="${Plantilla.plantillaTags.NOMBRE}" 
+                        name="nombre_jug"/></td>
+
+                <td><input type="text" class="form-jug-elemento editable" disabled
+                        id="form-jug-apellidos" value="${Plantilla.plantillaTags.APELLIDOS}" 
+                        name="apellidos_jug"/></td>
+
+                <td><input type="text" class="form-jug-elemento editable" disabled
+                        id="form-jug-nac" required value="${Plantilla.plantillaTags.DIA}/${Plantilla.plantillaTags.MES}/${Plantilla.plantillaTags.AÑO}" 
+                        name="nac_jug"/></td>
+
+                <td><input type="text" class="form-jug-elemento editable" disabled
+                        id="form-jug-pais" required value="${Plantilla.plantillaTags.PAIS_NACIMIENTO}" 
+                        name="pais_jug"/></td>
+
+                <td><input type="text" class="form-jug-elemento editable" disabled
+                        id="form-jug-pais" required value="${Plantilla.plantillaTags.PARTICIPACIONESMUNDIAL}" 
+                        name="pais_jug"/></td>
+                
+                <td><input type="number" class="form-jug-elemento editable" disabled
+                        id="form-jug-numParticipaciones" required value="${Plantilla.plantillaTags.NUMPARTICIPACIONES}" 
+                        name="numPart_jug"/></td>
+
+                    <td><input type="text" class="form-jug-elemento editable" disabled
+                        id="form-jug-club_actual" required value="${Plantilla.plantillaTags.NUMPARTICIPACIONES}" 
+                        name="numPart_jug"/></td>
+                <td><input type="text" class="form-jug-elemento editable" disabled
+                        id="form-jug-posicion" required value="${Plantilla.plantillaTags.POSICION}" 
+                        name="posicion_jug"/></td>
+
+                <td>
+                    <div><a href="javascript:Plantilla.editar()" class="opcion-secundaria mostrar">Editar</a></div>
+                    <div><a href="javascript:Plantilla.guardar()" class="opcion-terciaria editar ocultar">Guardar</a></div>
+                    <div><a href="javascript:Plantilla.cancelar()" class="opcion-terciaria editar ocultar">Cancelar</a></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+`;
+             
+Plantilla.plantillaFormularioJugador.actualiza = function(jugador){
+    return Plantilla.sustituyeTags(this.formulario, jugador)
+}
+
+
+Plantilla.habilitarDeshabilitarCamposEditables = function (deshabilitando) {
+    deshabilitando = (typeof deshabilitando === "undefined" || deshabilitando === null) ? true : deshabilitando
+    for (let campo in Plantilla.form) {
+        document.getElementById(Plantilla.form[campo]).disabled = deshabilitando
+    }
+    return this
+}
+
+Plantilla.deshabilitarCamposEditables = function () {
+    Plantilla.habilitarDeshabilitarCamposEditables(true)
+    return this
+}
+
+Plantilla.habilitarCamposEditables = function () {
+    Plantilla.habilitarDeshabilitarCamposEditables(false)
+    return this
+}
+
+
+Plantilla.opcionesMostrarOcultar = function (classname, mostrando) {
+    let opciones = document.getElementsByClassName(classname)
+    let claseQuitar = mostrando ? Frontend.CLASS_OCULTAR : Frontend.CLASS_MOSTRAR
+    let claseAniadir = !mostrando ? Frontend.CLASS_OCULTAR : Frontend.CLASS_MOSTRAR
+
+    for (let i = 0; i < opciones.length; ++i) {
+        Frontend.quitarClase(opciones[i], claseQuitar)
+            .aniadirClase(opciones[i], claseAniadir)
+    }
+    return this
+}
+
+Plantilla.ocultarOpcionesSecundarias = function () {
+    this.opcionesMostrarOcultar("opcion-secundaria", false)
+    return this
+}
+
+Plantilla.mostrarOpcionesSecundarias = function () {
+    this.opcionesMostrarOcultar("opcion-secundaria", true)
+    return this
+}
+
+Plantilla.mostrarOcionesTerciariasEditar = function () {
+    this.opcionesMostrarOcultar("opcion-terciaria editar", true)
+    return this
+}
+
+Plantilla.ocultarOcionesTerciariasEditar = function () {
+    this.opcionesMostrarOcultar("opcion-terciaria editar", false)
+    return this
+}
+
+Plantilla.editar = function () {
+    this.ocultarOpcionesSecundarias()
+    this.mostrarOcionesTerciariasEditar()
+    this.habilitarCamposEditables()
+}
+
+Plantilla.cancelar = function () {
+    this.imprimeJugador(this.recuperaDatosAlmacenados())
+    this.deshabilitarCamposEditables()
+    this.ocultarOcionesTerciariasEditar()
+    this.mostrarOpcionesSecundarias()
+}
+
+Plantilla.recuperaDatosAlmacenados = function () {
+    return this.jugadorMostrado;
+}
+
+Plantilla.jugadorComoForm = function (jugador) {
+    return Plantilla.plantillaFormularioJugador.actualiza( jugador );
+}
+
+Plantilla.almacenaDatos = function (jugador) {
+    Plantilla.jugadorMostrado = jugador;
+}
 
 
 
@@ -360,13 +510,12 @@ Plantilla.soloNombre = function (p){
 
 Plantilla.imprimeJugador = function (jugador) {
     // console.log(persona) // Para comprobar lo que hay en vector
-    let msj = Plantilla.plantillaTablaJugadores.cabecera;
-    msj += Plantilla.plantillaTablaJugadores.actualiza(jugador);
-    msj += Plantilla.plantillaTablaJugadores.pie;
+    let msj = Plantilla.jugadorComoForm(jugador)
+    
     // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar("Mostrar un jugador", msj)
     // Actualiza el objeto que guarda los datos mostrados
-    
+    Plantilla.almacenaDatos(jugador)
 }
 Plantilla.imprimeOtroJugador = function (vector) {
     //console.log(hacia_donde);
@@ -427,3 +576,5 @@ Plantilla.mostrarOtroJugador = function (hacia){
     hacia_donde = hacia;
     this.recupera(this.imprimeOtroJugador); 
 }
+
+

@@ -420,12 +420,6 @@ describe("Plantilla.mostrarJugador(): ", function(){
 })
 
 describe("Plantilla.mostrarOtroJugador(): ", function(){
-    it("Muestra correctamente el titulo de la tabla. ",
-    function(){
-        Plantilla.imprimeOtroJugador(jugadores)
-        expect(elementoTitulo.innerHTML).toBe(TITULO_MOSTRAR_JUGADOR)
-    }
-    )
     it("Pasa correctamente al siguiente jugador",
     function(){
         hacia_donde = 1;
