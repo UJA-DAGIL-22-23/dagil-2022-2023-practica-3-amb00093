@@ -102,3 +102,16 @@
  <img src='./assets/img/Func_INCR07-1.png?raw=true' width='600px'>
   <img src='./assets/img/Func_INCR07-2.png?raw=true' width='600px'>
 
+ ### Incremento nº8
+En este incremento, se implementó la HU12, que consistía en modificar el campo nombre de un jugador.
+A su vez, aunque la intención era la de implementar únicamente la HU12, se implementó la HU13 a la vez, que consistía en modificar varios campos a la vez.
+ 
+**Captura inicio** <br>  </br>
+<img src='./assets/img/Cap_Inicio_INCR08.png?raw=true' width='600px'>
+
+ **Captura final** <br>  </br>
+<img src='./assets/img/Cap_Final_INCR08.png?raw=true' width='600px'>
+ 
+ **Captura funcionamiento**<br> </br>
+ <img src='./assets/img/Func_INCR08.png?raw=true' width='600px'>
+ 
