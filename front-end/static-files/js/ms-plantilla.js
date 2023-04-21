@@ -592,19 +592,7 @@ Plantilla.guardar = async function () {
     try {
         let url = Frontend.API_GATEWAY + "/plantilla/setTodo"
         let id_jugador = document.getElementById("form-jug-id").value
-        
-       // console.log(id_jugador)
-       // console.log(document.getElementById("form-jug-nombre").value)
-       // console.log(document.getElementById("form-jug-apellidos").value)
-       // console.log(document.getElementById("form-jug-nombre").value)
-        //console.log(document.getElementById("form-jug-nac").value)
-       // console.log(document.getElementById("form-jug-pais").value)
-       // console.log(document.getElementById("form-jug-part").value)
-       // console.log(document.getElementById("form-jug-numPart").value)
-        //console.log(document.getElementById("form-jug-club").value)
-        //console.log(document.getElementById("form-jug-posicion").value)
-        
-
+      
         const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'no-cors', // no-cors, cors, *same-origin
