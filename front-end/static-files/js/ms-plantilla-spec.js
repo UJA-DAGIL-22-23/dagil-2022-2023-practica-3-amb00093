@@ -54,11 +54,7 @@ let jugadores = [
     data: {
     nombre: "Tijana",
     apellidos: "Boskovic",
-    nacimiento: {
-        dia: 8,
-        mes: 3,
-        Año: 1997
-    },
+    nacimiento: 1997,
     pais_nacimiento: "Serbia",
     participacionesMundial: [
         2014,
@@ -78,11 +74,7 @@ let jugadores = [
     data: {
     nombre: "Nataliya",
     apellidos: "Goncharova",
-    nacimiento: {
-        dia: 1,
-        mes: 6,
-        Año: 1989
-    },
+    nacimiento: 1990,
     pais_nacimiento: "Rusia",
     participacionesMundial: [
         2010,
@@ -103,11 +95,7 @@ let jugadores = [
     data: {
       nombre: "Facundo",
       apellidos: "Conte",
-      nacimiento: {
-        dia: 12,
-        mes: 8,
-        Año: 1989
-      },
+      nacimiento: 1989,
       pais_nacimiento: "Argentina",
       participacionesMundial: [
         2010,
@@ -340,9 +328,9 @@ describe("Plantilla.listarOrdenFecha: ", function (){
     it("Ordena correctamente el vector de jugadores ",
     function (){
         Plantilla.imprimeOrdenFecha(jugadores)
-        expect(jugadores[0].data.nacimiento).toEqual({dia:1, mes:6, Año:1989});
-        expect(jugadores[1].data.nacimiento).toEqual({dia: 12, mes: 8, Año: 1989});
-        expect(jugadores[2].data.nacimiento).toEqual({dia: 8, mes: 3, Año: 1997});
+        expect(jugadores[0].data.nacimiento).toEqual(1989);
+        expect(jugadores[1].data.nacimiento).toEqual(1990);
+        expect(jugadores[2].data.nacimiento).toEqual(1997);
     }
     )
 })

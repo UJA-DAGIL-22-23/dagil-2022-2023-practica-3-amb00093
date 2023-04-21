@@ -105,14 +105,14 @@ const CB_MODEL_SELECTS = {
                     
                     {
                         data: {
-                            nombre: data.nombre,
-                            apellidos: data.apellidos,
-                            nacimiento: data.nacimiento,
-                            pais_nacimiento: data.pais_nacimiento,
-                            participacionesMundial: data.participacionesMundial,
-                            numParticipaciones: data.numParticipaciones,
-                            club_actual: data.club_actual,
-                            posicion: data.posicion,
+                            nombre: data.nombre_jug,
+                            apellidos: data.apellidos_jug,
+                            nacimiento: data.nac_jug,
+                            pais_nacimiento: data.pais_jug,
+                            participacionesMundial: data.part_jug,
+                            numParticipaciones: data.numPart_jug,
+                            club_actual: data.club_jug,
+                            posicion: data.posicion_jug,
                         },
                     },
                 )

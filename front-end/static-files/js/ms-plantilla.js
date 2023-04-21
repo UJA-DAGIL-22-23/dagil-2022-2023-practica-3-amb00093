@@ -37,9 +37,7 @@ Plantilla.plantillaTags = {
     "ID": "### ID ###",
     "NOMBRE": "### NOMBRE ###",
     "APELLIDOS": "### APELLIDOS ###",
-    "DIA": "### DIA ###",
-    "MES": "### MES ###",
-    "AÑO": "### AÑO ###",
+    "FECHA": "### FECHA ###",
     "PAIS_NACIMIENTO": "### PAIS ###",
     "PARTICIPACIONESMUNDIAL": "### PARTICIPACIONES MUNDIAL ###",
     "NUMPARTICIPACIONES": "### NUMPARTICIPACIONES ###",
@@ -73,7 +71,7 @@ Plantilla.plantillaTablaJugadores.cuerpo = `
         <td>${Plantilla.plantillaTags.ID}</td>
         <td>${Plantilla.plantillaTags.NOMBRE}</td>
         <td>${Plantilla.plantillaTags.APELLIDOS}</td>
-        <td>${Plantilla.plantillaTags.DIA}/${Plantilla.plantillaTags.MES}/${Plantilla.plantillaTags.AÑO}</td>
+        <td>${Plantilla.plantillaTags.FECHA}</td>
         <td>${Plantilla.plantillaTags.PAIS_NACIMIENTO}</td>
         <td>${Plantilla.plantillaTags.PARTICIPACIONESMUNDIAL}</td>
         <td>${Plantilla.plantillaTags.NUMPARTICIPACIONES}</td>
@@ -93,7 +91,8 @@ Plantilla.plantillaTablaJugadores.pie = `        </tbody>
 Plantilla.plantillaFormularioJugador = {}
 
 
-Plantilla.plantillaFormularioJugador.formulario = `
+Plantilla.plantillaFormularioJugador.formulario = 
+`
 <form method='post' action=''>
     <table width="100%" class="listado-jugadores">
         <thead>
@@ -119,12 +118,14 @@ Plantilla.plantillaFormularioJugador.formulario = `
                         name="nombre_jug"/></td>
 
                 <td><input type="text" class="form-jug-elemento editable" disabled
-                        id="form-jug-apellidos" value="${Plantilla.plantillaTags.APELLIDOS}" 
+                        id="form-jug-apellidos" required value="${Plantilla.plantillaTags.APELLIDOS}" 
                         name="apellidos_jug"/></td>
 
-                <td><input type="text" class="form-jug-elemento editable" disabled
-                        id="form-jug-nac" required value="${Plantilla.plantillaTags.DIA}/${Plantilla.plantillaTags.MES}/${Plantilla.plantillaTags.AÑO}" 
-                        name="nac_jug"/></td>
+                <td>
+                <input type="number" class="form-jug-elemento editable" disabled
+                id="form-jug-nac" required value="${Plantilla.plantillaTags.FECHA}"       
+                name="nac_jug"/>    
+                </td>
 
                 <td><input type="text" class="form-jug-elemento editable" disabled
                         id="form-jug-pais" required value="${Plantilla.plantillaTags.PAIS_NACIMIENTO}" 
@@ -245,9 +246,7 @@ Plantilla.sustituyeTags = function (plantilla, jugador) {
         .replace(new RegExp(Plantilla.plantillaTags.ID, 'g'), jugador.ref['@ref'].id)
         .replace(new RegExp(Plantilla.plantillaTags.NOMBRE, 'g'), jugador.data.nombre)
         .replace(new RegExp(Plantilla.plantillaTags.APELLIDOS, 'g'), jugador.data.apellidos)
-        .replace(new RegExp(Plantilla.plantillaTags.DIA, 'g'), jugador.data.nacimiento.dia)
-        .replace(new RegExp(Plantilla.plantillaTags.MES, 'g'), jugador.data.nacimiento.mes)
-        .replace(new RegExp(Plantilla.plantillaTags.AÑO, 'g'), jugador.data.nacimiento.Año)
+        .replace(new RegExp(Plantilla.plantillaTags.FECHA, 'g'), jugador.data.nacimiento)
         .replace(new RegExp(Plantilla.plantillaTags.PAIS_NACIMIENTO, 'g'), jugador.data.pais_nacimiento)
         .replace(new RegExp(Plantilla.plantillaTags.PARTICIPACIONESMUNDIAL, 'g'), jugador.data.participacionesMundial)
         .replace(new RegExp(Plantilla.plantillaTags.NUMPARTICIPACIONES, 'g'), jugador.data.numParticipaciones)
@@ -463,10 +462,9 @@ Plantilla.imprimeAlfabeticamenteApellidos = function(vector){
 
 Plantilla.imprimeOrdenFecha = function(vector){
     let msj = Plantilla.plantillaTablaJugadores.cabecera
-    vector.sort(function(jugador1, jugador2) {
-        let fechaNacimiento1 = new Date(jugador1.data.nacimiento.Año, jugador1.data.nacimiento.mes - 1, jugador1.data.nacimiento.dia);
-        let fechaNacimiento2 = new Date(jugador2.data.nacimiento.Año, jugador2.data.nacimiento.mes - 1, jugador2.data.nacimiento.dia);
-        return fechaNacimiento1 - fechaNacimiento2;})
+        vector.sort(function(a, b){
+            return a.data.nacimiento - b.data.nacimiento;
+        });
         vector.forEach(e => msj += Plantilla.plantillaTablaJugadores.actualiza(e))
         msj += Plantilla.plantillaTablaJugadores.pie
 
@@ -594,18 +592,18 @@ Plantilla.guardar = async function () {
     try {
         let url = Frontend.API_GATEWAY + "/plantilla/setTodo"
         let id_jugador = document.getElementById("form-jug-id").value
-        /*
-        console.log(id_jugador)
-        console.log(document.getElementById("form-jug-nombre").value)
-        console.log(document.getElementById("form-jug-apellidos").value)
-        console.log(document.getElementById("form-jug-nombre").value)
-        console.log(document.getElementById("form-jug-nac").value)
-        console.log(document.getElementById("form-jug-pais").value)
-        console.log(document.getElementById("form-jug-part").value)
-        console.log(document.getElementById("form-jug-numPart").value)
-        console.log(document.getElementById("form-jug-club").value)
-        console.log(document.getElementById("form-jug-posicion").value)
-        */
+        
+       // console.log(id_jugador)
+       // console.log(document.getElementById("form-jug-nombre").value)
+       // console.log(document.getElementById("form-jug-apellidos").value)
+       // console.log(document.getElementById("form-jug-nombre").value)
+        //console.log(document.getElementById("form-jug-nac").value)
+       // console.log(document.getElementById("form-jug-pais").value)
+       // console.log(document.getElementById("form-jug-part").value)
+       // console.log(document.getElementById("form-jug-numPart").value)
+        //console.log(document.getElementById("form-jug-club").value)
+        //console.log(document.getElementById("form-jug-posicion").value)
+        
 
         const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -618,7 +616,7 @@ Plantilla.guardar = async function () {
             redirect: 'follow', // manual, *follow, error
             referrer: 'no-referrer', // no-referrer, *client
             body: JSON.stringify({
-                //"id_jug": id_jugador,
+                "id_jug": id_jugador,
                 "nombre_jug": document.getElementById("form-jug-nombre").value,
                 "apellidos_jug": document.getElementById("form-jug-apellidos").value,
                 "nac_jug": document.getElementById("form-jug-nac").value,
